@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
+using APICRUD.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace APICRUD
 {
@@ -26,6 +28,13 @@ namespace APICRUD
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(connection));
+            //var connection = Configuration.GetConnectionString("StudentsApp");
+
+            //services.AddDbContext<DataBaseContext>(options =>
+            // options.UseMySql(connection));
             //Enable CORS
             services.AddCors(c =>
             {
